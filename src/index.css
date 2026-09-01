@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #080808;
+    color: #F3F4F6;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, .font-serif-luxury {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom styles for luxury aesthetics */
+.text-luxury-orange {
+  color: #FF5E14;
+}
+
+.bg-luxury-orange {
+  background-color: #FF5E14;
+}
+
+.border-luxury-orange {
+  border-color: #FF5E14;
+}
+
+.shadow-luxury-orange {
+  box-shadow: 0 10px 30px -10px rgba(255, 94, 20, 0.4);
+}
+
+.shadow-luxury-glow {
+  box-shadow: 0 0 50px rgba(255, 94, 20, 0.15);
+}
+
+/* Text shadow utilities for enhanced readability */
+.text-shadow-subtle {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.text-shadow-title {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+

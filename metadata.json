@@ -1,0 +1,6 @@
+{
+  "name": "Mayuresh Photo Wala",
+  "description": "Premium cinematic photography and cinematography studio capturing timeless moments across weddings, pre-weddings, baby showers, and luxury celebrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
