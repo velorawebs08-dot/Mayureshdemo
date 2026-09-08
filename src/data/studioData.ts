@@ -20,99 +20,14 @@ export const STUDIO_CONFIG = {
 
 export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
   {
-    id: "wedding",
-    title: "Wedding",
-    subtitle: "Sacred Vows & Grand Royal Celebrations",
-    videoUrl: "https://www.image2url.com/r2/default/videos/1788242891454-68572c14-152d-4321-ab83-9dd2e535ecfd.mp4",
-    coverImage: "https://cdn.phototourl.com/member/2026-09-01-f04183a5-d140-41a1-90cf-863b3b8485f7.webp",
-    photos: [
-      {
-        id: "w1",
-        url: "https://cdn.phototourl.com/member/2026-09-01-f04183a5-d140-41a1-90cf-863b3b8485f7.webp",
-        alt: "Wedding ceremony portrait 1",
-        tag: "Royal Wedding",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "w2",
-        url: "https://cdn.phototourl.com/member/2026-09-01-5f66218a-1802-4d54-939f-d8a35b86703b.webp",
-        alt: "Wedding ceremony portrait 2",
-        tag: "Bridal Splendor",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "w3",
-        url: "https://cdn.phototourl.com/member/2026-09-01-f5574e25-292f-4a5e-b8b9-3e7a9aedd157.webp",
-        alt: "Wedding ceremony portrait 3",
-        tag: "Sacred Rituals",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "w4",
-        url: "https://cdn.phototourl.com/member/2026-09-01-ba4e35b8-132c-42ec-978e-24d945b4b628.webp",
-        alt: "Wedding ceremony portrait 4",
-        tag: "Varmala Moment",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "w5",
-        url: "https://cdn.phototourl.com/member/2026-09-01-cdb6328b-e8f7-4c38-84f4-1bc3c5697156.webp",
-        alt: "Wedding ceremony portrait 5",
-        tag: "Timeless Vows",
-        aspectRatio: "portrait"
-      }
-    ]
-  },
-  {
-    id: "pre-wedding",
-    title: "Pre-Wedding",
-    subtitle: "Cinematic Romance & Scenic Escapes",
-    videoUrl: "https://www.image2url.com/r2/default/videos/1788242674636-85b7b40f-fb24-4900-bc0b-b7a69c54a007.mp4",
-    coverImage: "https://cdn.phototourl.com/free/2026-09-01-c5590c21-7608-44e3-8194-fbbeba901c05.webp",
-    photos: [
-      {
-        id: "pw1",
-        url: "https://cdn.phototourl.com/free/2026-09-01-c5590c21-7608-44e3-8194-fbbeba901c05.webp",
-        alt: "Cinematic pre-wedding portrait 1",
-        tag: "Pre-Wedding Romance",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "pw2",
-        url: "https://cdn.phototourl.com/free/2026-09-01-f56c433d-db48-4b81-961f-dc1c6bde444b.webp",
-        alt: "Cinematic pre-wedding portrait 2",
-        tag: "Scenic Moments",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "pw3",
-        url: "https://cdn.phototourl.com/member/2026-09-01-82d90356-c31e-4b28-a903-e43e1186fe4b.webp",
-        alt: "Cinematic pre-wedding portrait 3",
-        tag: "Golden Hour Escape",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "pw4",
-        url: "https://cdn.phototourl.com/member/2026-09-01-5360b6d8-d83d-4ae1-8a33-85565e2192f5.webp",
-        alt: "Cinematic pre-wedding portrait 4",
-        tag: "Editorial Couple",
-        aspectRatio: "portrait"
-      },
-      {
-        id: "pw5",
-        url: "https://cdn.phototourl.com/member/2026-09-01-adf78bbc-9dc4-43c4-a5ef-f6460eee270a.webp",
-        alt: "Cinematic pre-wedding portrait 5",
-        tag: "Timeless Connection",
-        aspectRatio: "portrait"
-      }
-    ]
-  },
-  {
     id: "baby-shower",
     title: "Baby Shower",
-    subtitle: "Maternity Grace & Tender New Beginnings",
+    subtitle: "Maternity grace, warm candid blessings & joy",
     videoUrl: "https://www.image2url.com/r2/default/videos/1788242549062-e2358726-1ebb-48a7-862f-1d30da963f84.mp4",
     coverImage: "https://cdn.phototourl.com/member/2026-09-01-5925b5b4-3a52-4af9-a186-8c0b5d9a24ab.jpg",
+    packagesCount: "2 PACKAGES",
+    startingPrice: "₹18,000",
+    priceUnit: "shoot",
     photos: [
       {
         id: "bs1",
@@ -152,11 +67,61 @@ export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
     ]
   },
   {
+    id: "pre-wedding",
+    title: "Pre-Wedding",
+    subtitle: "Cinematic romance, sunrise beaches & hill vistas",
+    videoUrl: "https://www.image2url.com/r2/default/videos/1788242674636-85b7b40f-fb24-4900-bc0b-b7a69c54a007.mp4",
+    coverImage: "https://cdn.phototourl.com/free/2026-09-01-c5590c21-7608-44e3-8194-fbbeba901c05.webp",
+    packagesCount: "3 PACKAGES",
+    startingPrice: "₹25,000",
+    priceUnit: "shoot",
+    photos: [
+      {
+        id: "pw1",
+        url: "https://cdn.phototourl.com/free/2026-09-01-c5590c21-7608-44e3-8194-fbbeba901c05.webp",
+        alt: "Cinematic pre-wedding portrait 1",
+        tag: "Pre-Wedding Romance",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "pw2",
+        url: "https://cdn.phototourl.com/free/2026-09-01-f56c433d-db48-4b81-961f-dc1c6bde444b.webp",
+        alt: "Cinematic pre-wedding portrait 2",
+        tag: "Scenic Moments",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "pw3",
+        url: "https://cdn.phototourl.com/member/2026-09-01-82d90356-c31e-4b28-a903-e43e1186fe4b.webp",
+        alt: "Cinematic pre-wedding portrait 3",
+        tag: "Golden Hour Escape",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "pw4",
+        url: "https://cdn.phototourl.com/member/2026-09-01-5360b6d8-d83d-4ae1-8a33-85565e2192f5.webp",
+        alt: "Cinematic pre-wedding portrait 4",
+        tag: "Editorial Couple",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "pw5",
+        url: "https://cdn.phototourl.com/member/2026-09-01-adf78bbc-9dc4-43c4-a5ef-f6460eee270a.webp",
+        alt: "Cinematic pre-wedding portrait 5",
+        tag: "Timeless Connection",
+        aspectRatio: "portrait"
+      }
+    ]
+  },
+  {
     id: "events",
     title: "Events",
-    subtitle: "High-Profile Galas & Milestone Celebrations",
+    subtitle: "High-profile milestone parties & grand banquets",
     videoUrl: "https://www.image2url.com/r2/default/videos/1788242820632-89e82d53-b4b0-44ba-903c-810ca40b1edd.mp4",
     coverImage: "https://cdn.phototourl.com/free/2026-09-01-d8825e4b-54d7-48b7-a484-5820ed1385f6.jpg",
+    packagesCount: "3 PACKAGES",
+    startingPrice: "₹20,000",
+    priceUnit: "event",
     photos: [
       {
         id: "ev1",
@@ -191,6 +156,53 @@ export const PORTFOLIO_CATEGORIES: PortfolioCategory[] = [
         url: "https://i.postimg.cc/Qts1zFPL/Events-5.jpg",
         alt: "Event milestone celebration portrait 5",
         tag: "Grand Atmosphere",
+        aspectRatio: "portrait"
+      }
+    ]
+  },
+  {
+    id: "wedding",
+    title: "Wedding",
+    subtitle: "Sacred vows, rituals & royal wedding cinematography",
+    videoUrl: "https://www.image2url.com/r2/default/videos/1788242891454-68572c14-152d-4321-ab83-9dd2e535ecfd.mp4",
+    coverImage: "https://cdn.phototourl.com/member/2026-09-01-f04183a5-d140-41a1-90cf-863b3b8485f7.webp",
+    packagesCount: "4 PACKAGES",
+    startingPrice: "₹45,000",
+    priceUnit: "event",
+    photos: [
+      {
+        id: "w1",
+        url: "https://cdn.phototourl.com/member/2026-09-01-f04183a5-d140-41a1-90cf-863b3b8485f7.webp",
+        alt: "Wedding ceremony portrait 1",
+        tag: "Royal Wedding",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "w2",
+        url: "https://cdn.phototourl.com/member/2026-09-01-5f66218a-1802-4d54-939f-d8a35b86703b.webp",
+        alt: "Wedding ceremony portrait 2",
+        tag: "Bridal Splendor",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "w3",
+        url: "https://cdn.phototourl.com/member/2026-09-01-f5574e25-292f-4a5e-b8b9-3e7a9aedd157.webp",
+        alt: "Wedding ceremony portrait 3",
+        tag: "Sacred Rituals",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "w4",
+        url: "https://cdn.phototourl.com/member/2026-09-01-ba4e35b8-132c-42ec-978e-24d945b4b628.webp",
+        alt: "Wedding ceremony portrait 4",
+        tag: "Varmala Moment",
+        aspectRatio: "portrait"
+      },
+      {
+        id: "w5",
+        url: "https://cdn.phototourl.com/member/2026-09-01-cdb6328b-e8f7-4c38-84f4-1bc3c5697156.webp",
+        alt: "Wedding ceremony portrait 5",
+        tag: "Timeless Vows",
         aspectRatio: "portrait"
       }
     ]
@@ -349,3 +361,4 @@ export const BRANCHES: BranchInfo[] = [
     phone: "09623335522"
   }
 ];
+

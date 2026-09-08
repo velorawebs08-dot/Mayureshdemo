@@ -25,7 +25,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black pb-20 pt-32 sm:pb-24 lg:pb-28"
+      className="sticky top-0 w-full h-screen min-h-[100dvh] flex items-center justify-center overflow-hidden bg-black z-0 pb-16 pt-24 sm:pb-20 sm:pt-28 lg:pb-24"
     >
       {/* Full-Screen Looping Background Video - 100% vivid, clear, and unshaded */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">

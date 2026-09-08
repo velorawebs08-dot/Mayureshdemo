@@ -20,20 +20,23 @@ export default function App() {
 
       {/* Main Content Sections (5 Total as Specified) */}
       <main className="flex-grow">
-        {/* Section 1: Hero Section */}
+        {/* Section 1: Hero Section (Sticky / Frozen Cinematic Backdrop) */}
         <HeroSection />
 
-        {/* Section 2: Portfolio / Gallery Section */}
-        <PortfolioSection />
+        {/* Foreground Layer (Slides smoothly over Hero) */}
+        <div className="relative z-10">
+          {/* Section 2: Portfolio / Gallery Section */}
+          <PortfolioSection />
 
-        {/* Section 3: About + Why Choose Us (Combined) */}
-        <AboutSection />
+          {/* Section 3: About + Why Choose Us (Combined) */}
+          <AboutSection />
 
-        {/* Section 4: Testimonials + Instagram (Combined) */}
-        <TestimonialsInstagramSection />
+          {/* Section 4: Testimonials + Instagram (Combined) */}
+          <TestimonialsInstagramSection />
 
-        {/* Section 5: Contact / Booking + Footer (Combined) */}
-        <ContactFooterSection />
+          {/* Section 5: Contact / Booking + Footer (Combined) */}
+          <ContactFooterSection />
+        </div>
       </main>
 
       {/* Floating Quick Action Widget */}

@@ -10,7 +10,7 @@
     font-family: var(--font-sans);
     background-color: #080808;
     color: #F3F4F6;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   
   h1, h2, h3, .font-serif-luxury {
@@ -46,6 +46,17 @@
 
 .text-shadow-title {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 

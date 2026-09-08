@@ -4,6 +4,9 @@ export interface PortfolioCategory {
   subtitle: string;
   videoUrl: string;
   coverImage: string;
+  packagesCount?: string;
+  startingPrice?: string;
+  priceUnit?: string;
   photos: {
     id: string;
     url: string;
@@ -45,3 +48,4 @@ export interface InstagramPost {
   likes: string;
   link: string;
 }
+

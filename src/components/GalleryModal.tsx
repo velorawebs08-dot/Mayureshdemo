@@ -41,10 +41,10 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ category, onClose })
     if (category) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     };
   }, [category]);
 
@@ -99,8 +99,22 @@ export const GalleryModal: React.FC<GalleryModalProps> = ({ category, onClose })
             </div>
           </div>
 
-          {/* Photos Grid - NO description text under images, just image with tag on hover only */}
+          {/* Photos Grid & Cinema Reel */}
           <div className="flex-1 p-6 md:p-8 overflow-y-auto max-h-[calc(90vh-140px)]">
+            {/* Featured Video (Looped) */}
+            <div className="mb-6 rounded-2xl overflow-hidden border border-white/10 bg-black shadow-xl relative aspect-video sm:aspect-[21/9] w-full">
+              <video
+                src={category.videoUrl}
+                poster={category.coverImage}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                className="w-full h-full object-cover"
+              />
+            </div>
+
             <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
               {category.photos.map((photo, index) => (
                 <motion.div
