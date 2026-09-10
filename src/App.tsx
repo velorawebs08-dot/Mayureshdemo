@@ -8,7 +8,9 @@ import { Navbar } from './components/Navbar.tsx';
 import { HeroSection } from './components/HeroSection.tsx';
 import { PortfolioSection } from './components/PortfolioSection.tsx';
 import { AboutSection } from './components/AboutSection.tsx';
-import { TestimonialsInstagramSection } from './components/TestimonialsInstagramSection.tsx';
+import { StoriesSection } from './components/StoriesSection.tsx';
+import { WhyUsSection } from './components/WhyUsSection.tsx';
+import { InstagramSection } from './components/InstagramSection.tsx';
 import { ContactFooterSection } from './components/ContactFooterSection.tsx';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp.tsx';
 
@@ -18,7 +20,7 @@ export default function App() {
       {/* Navigation Header */}
       <Navbar />
 
-      {/* Main Content Sections (5 Total as Specified) */}
+      {/* Main Content Sections */}
       <main className="flex-grow">
         {/* Section 1: Hero Section (Sticky / Frozen Cinematic Backdrop) */}
         <HeroSection />
@@ -28,13 +30,19 @@ export default function App() {
           {/* Section 2: Portfolio / Gallery Section */}
           <PortfolioSection />
 
-          {/* Section 3: About + Why Choose Us (Combined) */}
+          {/* Section 3: About Founder & Brand */}
           <AboutSection />
 
-          {/* Section 4: Testimonials + Instagram (Combined) */}
-          <TestimonialsInstagramSection />
+          {/* Section 4: Stories Section (1st) */}
+          <StoriesSection />
 
-          {/* Section 5: Contact / Booking + Footer (Combined) */}
+          {/* Section 5: Why Us Section (then) */}
+          <WhyUsSection />
+
+          {/* Section 6: Instagram Social Feed */}
+          <InstagramSection />
+
+          {/* Section 7: Contact / Booking + Footer */}
           <ContactFooterSection />
         </div>
       </main>

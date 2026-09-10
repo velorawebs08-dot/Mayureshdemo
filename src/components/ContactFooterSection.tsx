@@ -480,13 +480,13 @@ export const ContactFooterSection: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#why-us" className="hover:text-[#FF5E14] transition-colors">
-                    Why Choose Us
+                  <a href="#stories" className="hover:text-[#FF5E14] transition-colors">
+                    Client Stories & Reviews
                   </a>
                 </li>
                 <li>
-                  <a href="#testimonials" className="hover:text-[#FF5E14] transition-colors">
-                    Client Testimonials
+                  <a href="#why-us" className="hover:text-[#FF5E14] transition-colors">
+                    Why Choose Us
                   </a>
                 </li>
                 <li>

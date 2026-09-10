@@ -24,45 +24,29 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
     video.loop = true;
     video.playsInline = true;
 
-    // Start playing video when card enters view, and pause when scrolled away
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
     const playVideo = () => {
-      video.play().catch(() => {
-        // Fallback on first user interaction if browser policy requires it
-        const unlock = () => {
-          if (videoRef.current) {
-            videoRef.current.play().catch(() => {});
-          }
-          window.removeEventListener('click', unlock);
-          window.removeEventListener('touchstart', unlock);
-          window.removeEventListener('scroll', unlock);
-        };
-        window.addEventListener('click', unlock, { once: true });
-        window.addEventListener('touchstart', unlock, { once: true });
-        window.addEventListener('scroll', unlock, { once: true });
-      });
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
     };
 
     playVideo();
 
+    // Auto-resume video playback on interaction if browser autoplay policy initially held it
+    const handleInteraction = () => {
+      if (videoRef.current && videoRef.current.paused) {
+        videoRef.current.play().catch(() => {});
+      }
+    };
+
+    window.addEventListener('click', handleInteraction, { passive: true, once: true });
+    window.addEventListener('touchstart', handleInteraction, { passive: true, once: true });
+    window.addEventListener('scroll', handleInteraction, { passive: true, once: true });
+
     return () => {
-      observer.disconnect();
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction);
     };
   }, [category.videoUrl]);
 
@@ -91,14 +75,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
             const v = e.currentTarget;
             v.currentTime = 0;
             v.play().catch(() => {});
-          }}
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget;
-            // Seamless loop transition safeguard if native loop halts
-            if (v.duration && v.currentTime >= v.duration - 0.25) {
-              v.currentTime = 0;
-              v.play().catch(() => {});
-            }
           }}
           className="w-full h-full object-cover object-center transform transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
           aria-label={`${category.title} cinematic showcase`}
@@ -143,8 +119,16 @@ export const PortfolioSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<PortfolioCategory | null>(null);
   const [shiftOffset, setShiftOffset] = useState<number>(0);
 
-  // Seamless marquee loop of the 4 categories (Baby Shower, Pre-Wedding, Events, Wedding)
-  const DISPLAY_CATEGORIES = [...PORTFOLIO_CATEGORIES, ...PORTFOLIO_CATEGORIES];
+  // Seamless permanent marquee loop:
+  // Each half has 3 full cycles of the 4 categories (12 cards = ~4,500px wide).
+  // Because 12 cards exceed even a 4K display width, the layout never runs out of cards,
+  // never shows empty gaps, and loops permanently and continuously.
+  const marqueeSet = [
+    ...PORTFOLIO_CATEGORIES,
+    ...PORTFOLIO_CATEGORIES,
+    ...PORTFOLIO_CATEGORIES,
+  ];
+  const DISPLAY_CATEGORIES = [...marqueeSet, ...marqueeSet];
 
   const slide = (direction: 'left' | 'right') => {
     const cardWidth = typeof window !== 'undefined' && window.innerWidth < 640 ? 300 : 360;
@@ -211,7 +195,7 @@ export const PortfolioSection: React.FC = () => {
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
             transition={{
-              duration: 35,
+              duration: 48,
               ease: 'linear',
               repeat: Infinity,
             }}
