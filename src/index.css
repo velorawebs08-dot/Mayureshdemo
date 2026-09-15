@@ -59,23 +59,24 @@
   scrollbar-width: none;  /* Firefox */
 }
 
-/* Infinite Seamless Marquee Loop Animation */
-@keyframes marquee-loop {
+/* Infinite Seamless Marquee Loop Animation (0% to -50% parent translation) */
+@keyframes marquee-parent-loop {
   0% {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee-loop {
-  animation: marquee-loop 55s linear infinite;
+  animation: marquee-parent-loop 55s linear infinite;
   will-change: transform;
 }
 
-.animate-marquee-loop:hover {
-  animation-play-state: paused;
+.animate-marquee-portfolio {
+  animation: marquee-parent-loop 58s linear infinite;
+  will-change: transform;
 }
 
 

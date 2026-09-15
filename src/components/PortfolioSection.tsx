@@ -5,6 +5,14 @@ import { PORTFOLIO_CATEGORIES } from '../data/studioData.ts';
 import { PortfolioCategory } from '../types.ts';
 import { GalleryModal } from './GalleryModal.tsx';
 
+// Category video mappings strictly for Our Portfolio layout
+const PORTFOLIO_LAYOUT_VIDEOS: Record<string, string> = {
+  'baby-shower': 'https://www.image2url.com/r2/default/videos/1788242549062-e2358726-1ebb-48a7-862f-1d30da963f84.mp4',
+  'pre-wedding': 'https://www.image2url.com/r2/default/videos/1788242674636-85b7b40f-fb24-4900-bc0b-b7a69c54a007.mp4',
+  'events': 'https://www.image2url.com/r2/default/videos/1788242820632-89e82d53-b4b0-44ba-903c-810ca40b1edd.mp4',
+  'wedding': 'https://www.image2url.com/r2/default/videos/1788242891454-68572c14-152d-4321-ab83-9dd2e535ecfd.mp4',
+};
+
 interface CategoryCardProps {
   category: PortfolioCategory;
   index: number;
@@ -14,6 +22,7 @@ interface CategoryCardProps {
 const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const targetVideoUrl = PORTFOLIO_LAYOUT_VIDEOS[category.id] || category.videoUrl;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -48,15 +57,11 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
       window.removeEventListener('touchstart', handleInteraction);
       window.removeEventListener('scroll', handleInteraction);
     };
-  }, [category.videoUrl]);
+  }, [targetVideoUrl]);
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 30, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, delay: Math.min(index * 0.08, 0.3), ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -8, scale: 1.02 }}
       className="group relative flex-shrink-0 w-[285px] sm:w-[330px] md:w-[350px] lg:w-[365px] xl:w-[380px] aspect-[3/4] rounded-[28px] sm:rounded-[32px] overflow-hidden bg-neutral-900 border border-white/10 shadow-2xl hover:border-[#FF5E14]/60 hover:shadow-[0_20px_50px_rgba(255,94,20,0.22)] transition-all duration-500 cursor-pointer flex flex-col justify-between select-none"
       onClick={() => onExplore(category)}
@@ -65,6 +70,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <video
           ref={videoRef}
+          src={targetVideoUrl}
           poster={category.coverImage}
           autoPlay
           muted
@@ -79,7 +85,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
           className="w-full h-full object-cover object-center transform transition-transform duration-700 ease-out group-hover:scale-105 pointer-events-none"
           aria-label={`${category.title} cinematic showcase`}
         >
-          <source src={category.videoUrl} type="video/mp4" />
+          <source src={targetVideoUrl} type="video/mp4" />
         </video>
 
         {/* Cinematic Gradient Overlays for High Legibility */}
@@ -118,21 +124,51 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, index, onExplore 
 export const PortfolioSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<PortfolioCategory | null>(null);
   const [shiftOffset, setShiftOffset] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Seamless permanent marquee loop:
-  // Each half has 3 full cycles of the 4 categories (12 cards = ~4,500px wide).
-  // Because 12 cards exceed even a 4K display width, the layout never runs out of cards,
-  // never shows empty gaps, and loops permanently and continuously.
-  const marqueeSet = [
+  // Each set contains 3 cycles of the 4 categories (12 cards = ~4,700px wide).
+  // Two identical sets inside one continuously moving parent container ensure
+  // cards never run out, never jump, and loop infinitely without end.
+  const PORTFOLIO_SET = [
     ...PORTFOLIO_CATEGORIES,
     ...PORTFOLIO_CATEGORIES,
     ...PORTFOLIO_CATEGORIES,
   ];
-  const DISPLAY_CATEGORIES = [...marqueeSet, ...marqueeSet];
+
+  const handleMouseEnter = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    // ONLY stop motion if the cursor has stopped/stayed on the layout for more than 2 seconds (2000ms)
+    hoverTimerRef.current = setTimeout(() => {
+      setIsPaused(true);
+    }, 2000);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    setIsPaused(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    };
+  }, []);
 
   const slide = (direction: 'left' | 'right') => {
-    const cardWidth = typeof window !== 'undefined' && window.innerWidth < 640 ? 300 : 360;
-    setShiftOffset((prev) => (direction === 'left' ? prev + cardWidth : prev - cardWidth));
+    const cardStep = typeof window !== 'undefined' && window.innerWidth < 640 ? 309 : 393;
+    setShiftOffset((prev) => {
+      const next = direction === 'left' ? prev + cardStep : prev - cardStep;
+      const trackWidth = 12 * cardStep;
+      // Seamlessly wrap shiftOffset so user clicks never run off into blank space
+      if (next < -trackWidth) return next + trackWidth;
+      if (next > 0) return next - trackWidth;
+      return next;
+    });
   };
 
   return (
@@ -191,25 +227,39 @@ export const PortfolioSection: React.FC = () => {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="w-full"
         >
-          {/* Marquee Track */}
-          <motion.div
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{
-              duration: 48,
-              ease: 'linear',
-              repeat: Infinity,
+          {/* Never-ending seamless marquee parent container */}
+          <div
+            className="flex w-max select-none animate-marquee-portfolio py-4"
+            style={{
+              animationPlayState: isPaused ? 'paused' : 'running',
             }}
-            className="flex gap-6 sm:gap-7 w-max hover:[animation-play-state:paused]"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            {DISPLAY_CATEGORIES.map((category, index) => (
-              <CategoryCard
-                key={`${category.id}-${index}`}
-                category={category}
-                index={index}
-                onExplore={(cat) => setActiveCategory(cat)}
-              />
-            ))}
-          </motion.div>
+            {/* Set 1: First continuous set of 12 category cards */}
+            <div className="flex gap-6 sm:gap-7 pr-6 sm:pr-7 shrink-0">
+              {PORTFOLIO_SET.map((category, index) => (
+                <CategoryCard
+                  key={`p1-${category.id}-${index}`}
+                  category={category}
+                  index={index}
+                  onExplore={(cat) => setActiveCategory(cat)}
+                />
+              ))}
+            </div>
+
+            {/* Set 2: Duplicate set for seamless mathematical infinite loop */}
+            <div className="flex gap-6 sm:gap-7 pr-6 sm:pr-7 shrink-0" aria-hidden="true">
+              {PORTFOLIO_SET.map((category, index) => (
+                <CategoryCard
+                  key={`p2-${category.id}-${index}`}
+                  category={category}
+                  index={index}
+                  onExplore={(cat) => setActiveCategory(cat)}
+                />
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
 

@@ -3,7 +3,7 @@ import { PortfolioCategory, TrustPoint, Testimonial, BranchInfo, InstagramPost }
 export const STUDIO_CONFIG = {
   name: "Mayuresh Photo Wala",
   founder: "Vinayak Mharugude",
-  founderImageUrl: "https://cdn.phototourl.com/free/2026-09-01-6077fb75-1248-42bf-876c-7759695cd466.jpg",
+  founderImageUrl: "https://i.ibb.co/4ZGvsMPg/Chat-GPT-Image-Sep-15-2026-04-02-11-PM-removebg-preview.png",
   logoUrl: "https://cdn.phototourl.com/free/2026-09-01-9308f384-0e86-41f4-80fa-6a0d8297bcd8.png",
   heroVideoUrl: "https://www.image2url.com/r2/default/videos/1788242440779-fc7a120a-2a38-48bd-a5fe-f374e7d2492c.mp4",
   whatsappNumber: "919595955220",

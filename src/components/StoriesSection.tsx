@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Star, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -63,17 +63,41 @@ const clientStories: StoryItem[] = [
 
 export const StoriesSection: React.FC = () => {
   const [shiftOffset, setShiftOffset] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Seamless permanent marquee loop:
-  // Each track contains 4 full cycles of client stories (16 cards = ~4,500px wide).
-  // With duplicate cloned tracks moving continuously in unison via GPU-accelerated CSS keyframes,
-  // the layout never ends, never stutters, and loops seamlessly forever.
+  // Each set contains 4 full cycles of client stories (16 cards = ~4,500px wide).
+  // Two identical sets inside one continuously moving parent container ensure
+  // cards never collide, never overlap, and loop infinitely without end.
   const TRACK_STORIES = [
     ...clientStories,
     ...clientStories,
     ...clientStories,
     ...clientStories,
   ];
+
+  const handleMouseEnter = () => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    // ONLY stop motion if the cursor has stopped/stayed on the layout for more than 2 seconds (2000ms)
+    hoverTimerRef.current = setTimeout(() => {
+      setIsPaused(true);
+    }, 2000);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    setIsPaused(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    };
+  }, []);
 
   const slide = (direction: 'left' | 'right') => {
     const cardStep = typeof window !== 'undefined' && window.innerWidth < 640 ? 253 : 281;
@@ -199,25 +223,25 @@ export const StoriesSection: React.FC = () => {
           className="w-full relative z-10"
         >
           {/* Never-ending seamless infinite marquee track container */}
-          <div className="flex w-max py-6 select-none">
-            {/* Track 1: First full continuous set */}
-            <div className="flex gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0 animate-marquee-loop">
+          <div
+            className="flex w-max py-6 select-none animate-marquee-loop"
+            style={{
+              animationPlayState: isPaused ? 'paused' : 'running',
+            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Set 1: First full continuous cycle of 16 cards */}
+            <div className="flex gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0">
               {TRACK_STORIES.map((story, index) => (
                 <StoryCardItem key={`t1-${story.id}-${index}`} story={story} index={index} />
               ))}
             </div>
 
-            {/* Track 2: Seamless duplicate set that immediately follows */}
-            <div className="flex gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0 animate-marquee-loop" aria-hidden="true">
+            {/* Set 2: Seamless duplicate cycle for mathematically perfect infinite loop */}
+            <div className="flex gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0" aria-hidden="true">
               {TRACK_STORIES.map((story, index) => (
                 <StoryCardItem key={`t2-${story.id}-${index}`} story={story} index={index} />
-              ))}
-            </div>
-
-            {/* Track 3: Extra buffer set ensuring ultrawide screens never reach an end */}
-            <div className="flex gap-7 sm:gap-9 pr-7 sm:pr-9 shrink-0 animate-marquee-loop" aria-hidden="true">
-              {TRACK_STORIES.map((story, index) => (
-                <StoryCardItem key={`t3-${story.id}-${index}`} story={story} index={index} />
               ))}
             </div>
           </div>
